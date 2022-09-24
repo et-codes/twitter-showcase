@@ -1,0 +1,32 @@
+.Header,
+.Footer {
+  background-color: #1d9bf0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 32px;
+  padding: 16px 32px;
+}
+.Footer {
+  font-size: 16px;
+  justify-content: center;
+}
+.Header-title {
+  font-weight: bold;
+}
+.Header-links {
+  display: flex;
+  gap: 24px;
+  font-size: 24px;
+}
+.Header-links a,
+.Footer-links {
+  color: white;
+  text-decoration: none;
+}
+.Header-links a:hover,
+.Footer-links:hover {
+  font-weight: bold;
+  text-decoration: underline;
+}

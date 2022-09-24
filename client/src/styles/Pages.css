@@ -1,0 +1,17 @@
+.Page {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+.Home {
+  justify-content: space-around;
+}
+.Search {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.error {
+  font-weight: bold;
+  color: darkred;
+}

@@ -1,0 +1,11 @@
+.Description {
+  text-align: left;
+  width: 50%;
+  margin-left: 32px;
+}
+.Description-link {
+  color: black;
+}
+.Description-link:hover {
+  font-weight: bold;
+}
