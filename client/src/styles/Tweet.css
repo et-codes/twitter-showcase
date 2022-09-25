@@ -85,3 +85,7 @@
 .Tweet-link {
   margin-left: auto;
 }
+
+.Tweet-image {
+  border-radius: 12px;
+}

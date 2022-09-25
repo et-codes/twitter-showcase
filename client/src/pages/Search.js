@@ -34,14 +34,38 @@ const Search = () => {
     }
   }
 
+  const getUser = (author_id) => {
+    return users.find(user => user.id === author_id);
+  }
+
+  const getMediaUrls = (tweet) => {
+    const mediaUrlList = [];
+    if (tweet.attachments) {
+      const mediaKeys = tweet.attachments.media_keys;
+      mediaKeys.forEach(key => {
+        const mediaObject = media.find(obj => obj.media_key === key);
+        if (mediaObject.type === 'photo') {
+          mediaUrlList.push(mediaObject.url);
+        } else {
+          mediaUrlList.push(mediaObject.preview_image_url);
+        }
+      });
+    }
+    return mediaUrlList;
+  }
+
   const tweetsToDisplay = [];
   const tweets = response.tweets;
   const users = response.users;
+  const media = response.media;
 
   if (response.tweets) {
     tweets.forEach(tweet => {
-      const user = users.find(user => user.id === tweet.author_id);
-      tweetsToDisplay.push(<Tweet key={tweet.id} tweet={tweet} user={user} />);
+      const user = getUser(tweet.author_id);
+      const mediaUrls = getMediaUrls(tweet);
+      tweetsToDisplay.push(
+        <Tweet key={tweet.id} tweet={tweet} user={user} media={mediaUrls} />
+      );
     });
   } else {
     if (searched) tweetsToDisplay.push(<p key={-1}>No results found.</p>);
