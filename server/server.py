@@ -20,7 +20,6 @@ class Tweets(Resource):
         }
 
         response = requests.get(url, headers=headers)
-        print(response.text)
 
         if response.status_code != requests.codes.ok:
             return 'Twitter server error', response.status_code

@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import Tweet from "./Tweet";
 import TweetFooter from './TweetFooter';
 import TweetHeader from './TweetHeader';
+import TweetText from './TweetText';
 import TwitterLogo from "./TwitterLogo";
 
 export {
@@ -15,5 +16,6 @@ export {
   Tweet,
   TweetFooter,
   TweetHeader,
+  TweetText,
   TwitterLogo
 };
