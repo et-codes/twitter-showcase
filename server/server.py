@@ -1,10 +1,12 @@
 import os
 import requests
+from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api, Resource
 
 
+load_dotenv()
 token = 'Bearer ' + os.environ['TOKEN']
 app = Flask(__name__)
 CORS(app)
@@ -12,7 +14,7 @@ api = Api(app)
 
 class Tweets(Resource):
     def get(self, query):
-        url = f'https://api.twitter.com/2/tweets/search/recent?query={query} -is:retweet -is:reply&max_results=10&tweet.fields=author_id,id,text,created_at,public_metrics,source&expansions=author_id,attachments.media_keys,referenced_tweets.id&user.fields=id,name,username,description,profile_image_url'
+        url = f'https://api.twitter.com/2/tweets/search/recent?query={query} -is:retweet -is:reply&max_results=10&tweet.fields=author_id,id,text,created_at,public_metrics,source&expansions=author_id,attachments.media_keys,referenced_tweets.id&user.fields=id,name,username,description,profile_image_url,verified&media.fields=url,preview_image_url'
         headers = {
             "Authorization": token
         }
@@ -28,7 +30,8 @@ class Tweets(Resource):
         if count > 0:
             tweets = response_content['data']
             users = response_content['includes']['users']
-            payload = {'tweets': tweets, 'users': users}
+            media = response_content['includes']['media']
+            payload = {'tweets': tweets, 'users': users, 'media': media}
             return payload, 200
         else:
             return 'No matches found', 200
