@@ -64,7 +64,7 @@ const Search = () => {
       const user = getUser(tweet.author_id);
       const mediaUrls = getMediaUrls(tweet);
       tweetsToDisplay.push(
-        <Tweet key={tweet.id} tweet={tweet} user={user} media={mediaUrls} />
+        <Tweet key={tweet.id} tweet={tweet} user={user} mediaUrls={mediaUrls} />
       );
     });
   } else {

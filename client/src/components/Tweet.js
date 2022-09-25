@@ -1,7 +1,7 @@
 import { TweetHeader, TweetFooter } from './';
 import '../styles/Tweet.css';
 
-const Tweet = ({ tweet, user, media: mediaUrls }) => {
+const Tweet = ({ tweet, user, mediaUrls }) => {
   const media = [];
   mediaUrls.forEach(url => {
     media.push(
