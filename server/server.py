@@ -1,12 +1,10 @@
 import os
 import requests
-from contextlib import nullcontext
-from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api, Resource
 
-load_dotenv()
+
 token = 'Bearer ' + os.environ['TOKEN']
 app = Flask(__name__)
 CORS(app)
@@ -20,19 +18,20 @@ class Tweets(Resource):
         }
 
         response = requests.get(url, headers=headers)
-        response_json = response.json()
-        response_content = response_json
 
+        if response.status_code != requests.codes.ok:
+            return 'Twitter server error', response.status_code
+        
+        response_content = response.json()
         count = response_content['meta']['result_count']
+
         if count > 0:
             tweets = response_content['data']
             users = response_content['includes']['users']
+            payload = {'tweets': tweets, 'users': users}
+            return payload, 200
         else:
-            count = -1
-            tweets = []
-            users = []
-        payload = {'count': count, 'tweets': tweets, 'users': users}
-        return payload, 200
+            return 'No matches found', 200
 
 @app.route('/')
 def home():

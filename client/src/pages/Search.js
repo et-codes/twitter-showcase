@@ -4,6 +4,7 @@ import { SearchBar, Tweet } from '../components';
 
 const Search = () => {
   const [search, setSearch] = useState('');
+  const [searched, setSearched] = useState(false);
   const [response, setResponse] = useState('');
   const [error, setError] = useState('');
 
@@ -13,29 +14,37 @@ const Search = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (search === '') {
+
+    if (!search) {
       setError('Please enter something to search for!');
       setTimeout(() => setError(''), 3000);
       return;
     }
 
-    const fetchedData = await axios.get(`http://localhost:5000/api/${search}`);
-    setResponse(fetchedData.data);
-    setSearch('');
+    try {
+      const encodedSearch = encodeURI(search);
+      const resp = await axios.get(`http://localhost:5000/api/${encodedSearch}`);
+      setResponse(resp.data);
+      setSearch('');
+      setSearched(true);
+    } catch (err) {
+      setError(`Twitter server error: ${err.message}`);
+      setTimeout(() => setError(''), 5000);
+      setResponse('');
+    }
   }
 
   const tweetsToDisplay = [];
-  const count = response.count;
-  if (count > 0) {
-    const tweets = response.tweets;
-    const users = response.users;
+  const tweets = response.tweets;
+  const users = response.users;
+
+  if (response.tweets) {
     tweets.forEach(tweet => {
       const user = users.find(user => user.id === tweet.author_id);
       tweetsToDisplay.push(<Tweet key={tweet.id} tweet={tweet} user={user} />);
     });
-  }
-  if (count === -1) {
-    tweetsToDisplay.push(<p className="error" key={-1}>No results found.</p>);
+  } else {
+    if (searched) tweetsToDisplay.push(<p key={-1}>No results found.</p>);
   }
 
   return (
