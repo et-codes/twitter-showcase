@@ -1,4 +1,4 @@
-import '../styles/Pages.css';
+import '../styles/Home.css';
 import { Description, TwitterLogo } from '../components';
 
 const Home = () => {

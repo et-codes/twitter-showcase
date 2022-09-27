@@ -4,3 +4,9 @@
   display: flex;
   flex-direction: column;
 }
+.Page {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}

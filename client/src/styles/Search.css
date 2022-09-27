@@ -1,0 +1,8 @@
+.Search {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.error {
+  font-weight: bold;
+  color: darkred;
+}

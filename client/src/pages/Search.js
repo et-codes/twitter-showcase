@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { SearchBar, Tweet } from '../components';
+import '../styles/Search.css';
 
 const Search = () => {
   const [search, setSearch] = useState('');
