@@ -6,7 +6,7 @@ const SearchBar = ({ text, handleChange, handleSubmit }) => {
       <form onSubmit={handleSubmit}>
         <input
           className="Search-input"
-          placeholder="Search Twitter"
+          placeholder="Search for topic or @username"
           value={text}
           onChange={handleChange}
         />
