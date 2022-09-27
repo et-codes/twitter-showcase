@@ -8,8 +8,9 @@ from flask_restful import Api, Resource
 
 load_dotenv()
 token = 'Bearer ' + os.environ['TOKEN']
+
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
 api = Api(app)
 
 class Tweets(Resource):

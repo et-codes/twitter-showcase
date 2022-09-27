@@ -1,4 +1,5 @@
-import { TweetHeader, TweetFooter, TweetText } from './';
+import { TweetHeader, TweetFooter } from './';
+import parseLinks from '../utils/parseLinks.js';
 import '../styles/Tweet.css';
 
 const Tweet = ({ tweet, user, mediaUrls }) => {
@@ -14,10 +15,12 @@ const Tweet = ({ tweet, user, mediaUrls }) => {
     );
   });
 
+  const tweetText = parseLinks(tweet);
+
   return (
     <div className="Tweet">
       <TweetHeader tweet={tweet} user={user} />
-      <TweetText tweet={tweet} />
+      <p>{tweetText}</p>
       {media}
       <TweetFooter tweet={tweet} />
     </div>

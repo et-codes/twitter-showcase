@@ -13,15 +13,7 @@ const Search = () => {
     setSearch(event.target.value);
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!search) {
-      setError('Please enter something to search for!');
-      setTimeout(() => setError(''), 3000);
-      return;
-    }
-
+  const getResults = async () => {
     try {
       const encodedSearch = encodeURI(search);
       const resp = await axios.get(`http://localhost:5000/api/${encodedSearch}`);
@@ -35,8 +27,18 @@ const Search = () => {
     }
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!search) {
+      setError('Please enter something to search for!');
+      setTimeout(() => setError(''), 3000);
+      return;
+    }
+    getResults();
+  }
+
   const getUser = (author_id) => {
-    return users.find(user => user.id === author_id);
+    return response.users.find(user => user.id === author_id);
   }
 
   const getMediaUrls = (tweet) => {
@@ -44,7 +46,7 @@ const Search = () => {
     if (tweet.attachments) {
       const mediaKeys = tweet.attachments.media_keys;
       mediaKeys.forEach(key => {
-        const mediaObject = media.find(obj => obj.media_key === key);
+        const mediaObject = response.media.find(obj => obj.media_key === key);
         if (mediaObject.type === 'photo') {
           mediaUrlList.push(mediaObject.url);
         } else {
@@ -55,22 +57,23 @@ const Search = () => {
     return mediaUrlList;
   }
 
-  const tweetsToDisplay = [];
-  const tweets = response.tweets;
-  const users = response.users;
-  const media = response.media;
-
-  if (response.tweets) {
-    tweets.forEach(tweet => {
-      const user = getUser(tweet.author_id);
-      const mediaUrls = getMediaUrls(tweet);
-      tweetsToDisplay.push(
-        <Tweet key={tweet.id} tweet={tweet} user={user} mediaUrls={mediaUrls} />
-      );
-    });
-  } else {
-    if (searched) tweetsToDisplay.push(<p key={-1}>No results found.</p>);
+  const createTweetList = () => {
+    const tweetsList = [];
+    if (response.tweets) {
+      response.tweets.forEach(tweet => {
+        const user = getUser(tweet.author_id);
+        const mediaUrls = getMediaUrls(tweet);
+        tweetsList.push(
+          <Tweet key={tweet.id} tweet={tweet} user={user} mediaUrls={mediaUrls} />
+        );
+      });
+    } else {
+      if (searched) tweetsList.push(<p key={-1}>No results found.</p>);
+    }
+    return tweetsList;
   }
+
+  const tweetsToDisplay = createTweetList();
 
   return (
     <div className="Search Page">
