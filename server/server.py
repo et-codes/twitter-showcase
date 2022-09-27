@@ -21,9 +21,8 @@ class Tweets(Resource):
             search = f'{query} -is:retweet -is:reply'
 
         url = f'https://api.twitter.com/2/tweets/search/recent?query={search}&max_results=10&tweet.fields=author_id,id,text,created_at,public_metrics,source,entities&expansions=author_id,attachments.media_keys,referenced_tweets.id&user.fields=id,name,username,description,profile_image_url,verified&media.fields=url,preview_image_url'
-        headers = {
-            "Authorization": token
-        }
+        
+        headers = { "Authorization": token }
 
         response = requests.get(url, headers=headers)
 
