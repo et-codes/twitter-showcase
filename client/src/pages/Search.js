@@ -13,6 +13,16 @@ const Search = () => {
     setSearch(event.target.value);
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!search) {
+      setError('Please enter something to search for!');
+      setTimeout(() => setError(''), 3000);
+      return;
+    }
+    getResults();
+  }
+
   const getResults = async () => {
     try {
       const encodedSearch = encodeURI(search);
@@ -25,16 +35,6 @@ const Search = () => {
       setTimeout(() => setError(''), 5000);
       setResponse('');
     }
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!search) {
-      setError('Please enter something to search for!');
-      setTimeout(() => setError(''), 3000);
-      return;
-    }
-    getResults();
   }
 
   const getUser = (author_id) => {
