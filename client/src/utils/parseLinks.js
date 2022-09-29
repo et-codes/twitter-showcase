@@ -1,5 +1,4 @@
 const parseLinks = (tweet) => {
-  console.log(tweet);
   const text = [];
   let index = 0;
   if (tweet.entities && tweet.entities.urls) {

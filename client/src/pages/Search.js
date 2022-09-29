@@ -26,7 +26,8 @@ const Search = () => {
   const getResults = async () => {
     try {
       const encodedSearch = encodeURI(search);
-      const resp = await axios.get(`http://localhost:5000/api/${encodedSearch}`);
+      const url = `http://localhost:5000/api/tweets/${encodedSearch}`;
+      const resp = await axios.get(url);
       setResponse(resp.data);
       setSearch('');
       setSearched(true);
