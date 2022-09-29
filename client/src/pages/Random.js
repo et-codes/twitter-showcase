@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Profile } from '../components';
 import '../styles/Random.css';
 
 const Random = () => {
@@ -12,12 +13,13 @@ const Random = () => {
   ];
   const [response, setResponse] = useState('');
   const [error, setError] = useState('');
+  const [profileList, setProfileList] = useState([]);
 
   useEffect(() => {
     const getResults = async () => {
       try {
         const users = userList.join(',');
-        const url = `http://localhost:5000/api/userdata/${users}`;
+        const url = `http://localhost:5000/api/userdata/${users}&user.fields=id,name,username,description,profile_image_url,verified`;
         const resp = await axios.get(url);
         setResponse(resp.data);
       } catch (err) {
@@ -28,13 +30,23 @@ const Random = () => {
     getResults();
   }, []);
 
-  console.log(response);
+  useEffect(() => {
+    const profiles = [];
+    if (response !== '') {
+      response.forEach(profile => {
+        profiles.push(
+          <Profile key={profile.id} profile={profile} />
+        );
+      });
+    }
+    setProfileList(profiles);
+  }, [response]);
 
   return (
     <div className="Page Random">
+      <span className="error">{error}</span>
       <h1>Random Tweet</h1>
-      <p>...from a hand-picked selection of Twits...</p>
-      <p><em>Coming soon!</em></p>
+      {profileList}
     </div>
   );
 }

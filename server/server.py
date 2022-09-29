@@ -63,7 +63,7 @@ class UserData(Resource):
         headers = get_headers()
         response, code = get_response(url, headers)
 
-        return response, code
+        return response['data'], code
 
 
 @app.route('/')
