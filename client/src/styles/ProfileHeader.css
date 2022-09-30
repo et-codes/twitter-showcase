@@ -1,0 +1,22 @@
+.Profile-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Profile-profile {
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin: 4px 4px 4px 0;
+}
+
+.Profile-userinfo {
+  line-height: 22px;
+}
+
+.Profile-username {
+  color: #536471;
+  font-weight: normal;
+}

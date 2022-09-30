@@ -4,13 +4,6 @@ import { Profile } from '../components';
 import '../styles/Random.css';
 
 const Random = () => {
-  const userList = [
-    'mikeslessons',
-    'davewecklmusic',
-    'JostNickel',
-    'AntonioDrumsX',
-    'copelandmusic'
-  ];
   const [response, setResponse] = useState('');
   const [error, setError] = useState('');
   const [profileList, setProfileList] = useState([]);
@@ -18,7 +11,7 @@ const Random = () => {
   useEffect(() => {
     const getResults = async () => {
       try {
-        const users = userList.join(',');
+        const users = 'mikeslessons,davewecklmusic,JostNickel,AntonioDrumsX,copelandmusic';
         const url = `http://localhost:5000/api/userdata/${users}&user.fields=id,name,username,description,profile_image_url,verified`;
         const resp = await axios.get(url);
         setResponse(resp.data);
@@ -45,7 +38,7 @@ const Random = () => {
   return (
     <div className="Page Random">
       <span className="error">{error}</span>
-      <h1>Random Tweet</h1>
+      <h2>Select one of my favorite drummers for a random Tweet!</h2>
       {profileList}
     </div>
   );
