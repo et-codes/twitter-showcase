@@ -13,7 +13,7 @@ const Random = () => {
   useEffect(() => {
     const getProfiles = async () => {
       try {
-        const users = 'mikeslessons,davewecklmusic,JostNickel,AntonioDrumsX,copelandmusic';
+        const users = 'davewecklmusic,JostNickel,AntonioDrumsX,copelandmusic,mikeslessons';
         const url = `http://localhost:5000/api/userdata/${users}&user.fields=id,name,username,description,profile_image_url,verified`;
         const resp = await axios.get(url);
         setProfileData(resp.data);
@@ -30,14 +30,14 @@ const Random = () => {
     if (profileData !== '') {
       profileData.forEach(profile => {
         profiles.push(
-          <Profile key={profile.id} profile={profile} onClick={handleClick} />
+          <Profile key={profile.id} profile={profile} onClick={getRandomTweet} />
         );
       });
     }
     setProfileList(profiles);
   }, [profileData]);
 
-  const handleClick = async (id) => {
+  const getRandomTweet = async (id) => {
     try {
       const url = `http://localhost:5000/api/timeline/${id}`;
       const resp = await axios.get(url);
