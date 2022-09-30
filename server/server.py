@@ -9,10 +9,10 @@ from flask_restful import Api, Resource
 app = Flask(__name__)
 cors = CORS(app)
 api = Api(app)
+load_dotenv()
 
 
 def get_headers():
-    load_dotenv()
     token = 'Bearer ' + os.environ['TOKEN']
     headers = { "Authorization": token }
     return headers
@@ -27,7 +27,7 @@ def get_response(url, headers):
     return response.json(), 200
 
 
-class Tweets(Resource):
+class SearchTweets(Resource):
     def get(self, query):
 
         if query.startswith('@'):
@@ -56,9 +56,29 @@ class Tweets(Resource):
         return payload, 200
 
 
+class UserTimeline(Resource):
+    def get(self, id):
+        url = f'https://api.twitter.com/2/users/{id}/tweets'
+
+        headers = get_headers()
+        response, code = get_response(url, headers)
+
+        return response['data'], code
+
+
 class UserData(Resource):
     def get(self, query):
         url = f'https://api.twitter.com/2/users/by?usernames={query}'
+
+        headers = get_headers()
+        response, code = get_response(url, headers)
+
+        return response['data'], code
+
+
+class SingleTweet(Resource):
+    def get(self, id):
+        url = f'https://api.twitter.com/2/tweets/{id}?tweet.fields=author_id,id,text,created_at,public_metrics,source,entities&expansions=author_id,attachments.media_keys&media.fields=url,preview_image_url&user.fields=id,name,username,description,profile_image_url,verified'
 
         headers = get_headers()
         response, code = get_response(url, headers)
@@ -70,8 +90,11 @@ class UserData(Resource):
 def home():
     return '<h1>Server Home</h1>'
 
-api.add_resource(Tweets, '/api/tweets/<string:query>')
+api.add_resource(SearchTweets, '/api/tweets/<string:query>')
+api.add_resource(UserTimeline, '/api/timeline/<string:id>')
 api.add_resource(UserData, '/api/userdata/<string:query>')
+api.add_resource(SingleTweet, '/api/tweet/<string:id>')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

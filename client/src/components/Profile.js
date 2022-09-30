@@ -1,9 +1,9 @@
 import { ProfileHeader } from './';
 import '../styles/Profile.css';
 
-const Profile = ({ profile }) => {
+const Profile = ({ profile, onClick }) => {
   return (
-    <div className="Profile">
+    <div className="Profile" onClick={() => onClick(profile.id)}>
       <ProfileHeader user={profile} />
       <p>{profile.description}</p>
     </div>
