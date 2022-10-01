@@ -30,29 +30,41 @@ const Random = () => {
     if (profileData !== '') {
       profileData.forEach(profile => {
         profiles.push(
-          <Profile key={profile.id} profile={profile} onClick={getRandomTweet} />
+          <Profile key={profile.id} profile={profile} onClick={getRandomTweetId} />
         );
       });
     }
     setProfileList(profiles);
   }, [profileData]);
 
-  const getRandomTweet = async (id) => {
+  const getRandomTweetId = async (id) => {
     try {
       const url = `http://localhost:5000/api/timeline/${id}`;
       const resp = await axios.get(url);
       const index = Math.floor(Math.random() * resp.data.length);
       const tweetId = resp.data[index].id;
-      displayTweet(tweetId);
+      getTweet(tweetId);
     } catch (err) {
       setError(`Twitter server error: ${err.message}`);
       setTimeout(() => setError(''), 5000);
     }
   }
 
-  const displayTweet = async (id) => {
-    // grab Tweet from /api/tweet/:id and put into Tweet component
-    console.log(id);
+  const getTweet = async (id) => {
+    try {
+      const url = `http://localhost:5000/api/tweet/${id}`;
+      const resp = await axios.get(url);
+      createTweet(resp.data);
+    } catch (err) {
+      setError(`Twitter server error: ${err.message}`);
+      setTimeout(() => setError(''), 5000);
+    }
+  }
+
+  const createTweet = (data) => {
+    // Need to move supporting functions into Tweet component.
+    // getUser and getMediaUrls
+    console.log(data);
   }
 
   return (
