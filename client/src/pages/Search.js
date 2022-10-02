@@ -29,6 +29,7 @@ const Search = () => {
       const url = `http://localhost:5000/api/tweets/${encodedSearch}`;
       const resp = await axios.get(url);
       setResponse(resp.data);
+      console.log(response);
       setSearch('');
       setSearched(true);
     } catch (err) {

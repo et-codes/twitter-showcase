@@ -11,6 +11,8 @@ cors = CORS(app)
 api = Api(app)
 load_dotenv()
 
+# Fields to return from Tweet searches
+tweet_fields = 'tweet.fields=author_id,id,text,created_at,public_metrics,source,entities&expansions=author_id,attachments.media_keys,referenced_tweets.id&user.fields=id,name,username,description,profile_image_url,verified&media.fields=url,preview_image_url'
 
 def get_headers():
     token = 'Bearer ' + os.environ['TOKEN']
@@ -27,6 +29,14 @@ def get_response(url, headers):
     return response.json(), 200
 
 
+def build_payload(response):
+    tweets = response['data']
+    users = response['includes']['users']
+    media = response['includes']['media']
+    payload = {'tweets': tweets, 'users': users, 'media': media}
+    return payload
+
+
 class SearchTweets(Resource):
     def get(self, query):
 
@@ -35,7 +45,7 @@ class SearchTweets(Resource):
         else:
             search = f'{query} -is:retweet -is:reply'
 
-        url = f'https://api.twitter.com/2/tweets/search/recent?query={search}&max_results=10&tweet.fields=author_id,id,text,created_at,public_metrics,source,entities&expansions=author_id,attachments.media_keys,referenced_tweets.id&user.fields=id,name,username,description,profile_image_url,verified&media.fields=url,preview_image_url'
+        url = f'https://api.twitter.com/2/tweets/search/recent?query={search}&max_results=10&{tweet_fields}'
 
         headers = get_headers()
         response, code = get_response(url, headers)
@@ -46,10 +56,7 @@ class SearchTweets(Resource):
         count = response['meta']['result_count']
 
         if count > 0:
-            tweets = response['data']
-            users = response['includes']['users']
-            media = response['includes']['media']
-            payload = {'tweets': tweets, 'users': users, 'media': media}
+            payload = build_payload(response)
         else:
             payload = 'No matches found'
 
@@ -78,12 +85,14 @@ class UserData(Resource):
 
 class SingleTweet(Resource):
     def get(self, id):
-        url = f'https://api.twitter.com/2/tweets/{id}?tweet.fields=author_id,id,text,created_at,public_metrics,source,entities&expansions=author_id,attachments.media_keys&media.fields=url,preview_image_url&user.fields=id,name,username,description,profile_image_url,verified'
+        url = f'https://api.twitter.com/2/tweets/{id}?{tweet_fields}'
 
         headers = get_headers()
         response, code = get_response(url, headers)
 
-        return response['data'], code
+        payload = build_payload(response)
+
+        return payload, 200
 
 
 @app.route('/')
