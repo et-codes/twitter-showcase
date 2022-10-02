@@ -42,6 +42,7 @@ const Random = () => {
       setProfilesToDisplay(profiles);
     }
     createProfileList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileData]);
 
   const getRandomTweetId = async (id) => {
@@ -75,13 +76,14 @@ const Random = () => {
     setTweetToDisplay(
       <div>
         <Tweet key={tweet.id} tweet={tweet} user={user} mediaUrls={mediaUrls} />
-        <RandomButton handleClick={() => searchAgain()} />
+        <RandomButton handleClick={searchAgain} />
       </div>
     );
     setProfilesToDisplay([]);
   }
 
   const searchAgain = (event) => {
+    console.log('Search again.');
     setTweetToDisplay('');
     setProfilesToDisplay(profileList);
   }
