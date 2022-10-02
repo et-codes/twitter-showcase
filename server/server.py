@@ -32,7 +32,10 @@ def get_response(url, headers):
 def build_payload(response):
     tweets = response['data']
     users = response['includes']['users']
-    media = response['includes']['media']
+    if 'media' in response['includes']:
+        media = response['includes']['media']
+    else:
+        media = []
     payload = {'tweets': tweets, 'users': users, 'media': media}
     return payload
 

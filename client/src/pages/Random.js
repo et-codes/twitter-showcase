@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Profile, Tweet } from '../components';
+import { Profile, Tweet, RandomButton } from '../components';
+import getMediaUrls from '../utils/getMediaUrls';
 import '../styles/Random.css';
 
 const Random = () => {
   const [profileData, setProfileData] = useState('');
   const [profileList, setProfileList] = useState([]);
-  const [tweet, setTweet] = useState('');
-  const [user, setUser] = useState('');
+  const [profilesToDisplay, setProfilesToDisplay] = useState([]);
+  const [tweetToDisplay, setTweetToDisplay] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -26,15 +27,21 @@ const Random = () => {
   }, []);
 
   useEffect(() => {
-    const profiles = [];
-    if (profileData !== '') {
-      profileData.forEach(profile => {
-        profiles.push(
-          <Profile key={profile.id} profile={profile} onClick={getRandomTweetId} />
-        );
-      });
+    const createProfileList = () => {
+      const profiles = [
+        <h2 key={1}>Click on one of my favorite drummers for a random Tweet!</h2>
+      ];
+      if (profileData !== '') {
+        profileData.forEach(profile => {
+          profiles.push(
+            <Profile key={profile.id} profile={profile} onClick={getRandomTweetId} />
+          );
+        });
+      }
+      setProfileList(profiles);
+      setProfilesToDisplay(profiles);
     }
-    setProfileList(profiles);
+    createProfileList();
   }, [profileData]);
 
   const getRandomTweetId = async (id) => {
@@ -62,17 +69,28 @@ const Random = () => {
   }
 
   const createTweet = (data) => {
-    // Need to move supporting functions into Tweet component.
-    // getUser and getMediaUrls
-    console.log(data);
+    const tweet = data.tweets;
+    const user = data.users[0];
+    const mediaUrls = getMediaUrls(tweet, data.media);
+    setTweetToDisplay(
+      <div>
+        <Tweet key={tweet.id} tweet={tweet} user={user} mediaUrls={mediaUrls} />
+        <RandomButton handleClick={() => searchAgain()} />
+      </div>
+    );
+    setProfilesToDisplay([]);
+  }
+
+  const searchAgain = (event) => {
+    setTweetToDisplay('');
+    setProfilesToDisplay(profileList);
   }
 
   return (
     <div className="Page Random">
       <span className="error">{error}</span>
-      <h2>Click on one of my favorite drummers for a random Tweet!</h2>
-      {profileList}
-      {tweet}
+      {profilesToDisplay}
+      {tweetToDisplay}
     </div>
   );
 }
