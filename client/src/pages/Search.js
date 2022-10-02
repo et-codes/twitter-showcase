@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { SearchBar, Tweet } from '../components';
+import getMediaUrls from '../utils/getMediaUrls';
 import '../styles/Search.css';
 
 const Search = () => {
@@ -43,28 +44,12 @@ const Search = () => {
     return response.users.find(user => user.id === author_id);
   }
 
-  const getMediaUrls = (tweet) => {
-    const mediaUrlList = [];
-    if (tweet.attachments) {
-      const mediaKeys = tweet.attachments.media_keys;
-      mediaKeys.forEach(key => {
-        const mediaObject = response.media.find(obj => obj.media_key === key);
-        if (mediaObject.type === 'photo') {
-          mediaUrlList.push(mediaObject.url);
-        } else {
-          mediaUrlList.push(mediaObject.preview_image_url);
-        }
-      });
-    }
-    return mediaUrlList;
-  }
-
   const createTweetList = () => {
     const tweetsList = [];
     if (response.tweets) {
       response.tweets.forEach(tweet => {
         const user = getUser(tweet.author_id);
-        const mediaUrls = getMediaUrls(tweet);
+        const mediaUrls = getMediaUrls(tweet, response.media);
         tweetsList.push(
           <Tweet key={tweet.id} tweet={tweet} user={user} mediaUrls={mediaUrls} />
         );
