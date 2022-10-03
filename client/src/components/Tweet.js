@@ -7,7 +7,7 @@ const Tweet = ({ tweet, user, mediaUrls }) => {
   mediaUrls.forEach(url => {
     media.push(
       <img
-        key={url}
+        key={Math.random()}
         className="Tweet-image"
         src={url}
         alt="Tweet media"
