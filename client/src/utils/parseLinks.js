@@ -26,7 +26,7 @@ const parseLinks = (tweet) => {
     });
   };
 
-  text.push(<span key={Math.random()}>{tweet.text.slice(index)}</span>);
+  text.push(<span key={getKey()}>{tweet.text.slice(index)}</span>);
 
   return text;
 }
