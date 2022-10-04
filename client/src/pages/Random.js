@@ -20,7 +20,7 @@ const Random = () => {
         const resp = await axios.get(url);
         setProfileData(resp.data);
       } catch (err) {
-        setError(`Twitter server error: ${err.message}`);
+        setError(`Server error: ${err.message}`);
         setTimeout(() => setError(''), 5000);
       }
     }
@@ -62,14 +62,14 @@ const Random = () => {
     try {
       const url = `http://localhost:5000/api/tweet/${id}`;
       const resp = await axios.get(url);
-      createTweet(resp.data);
+      displayTweet(resp.data);
     } catch (err) {
       setError(`Twitter server error: ${err.message}`);
       setTimeout(() => setError(''), 5000);
     }
   }
 
-  const createTweet = (data) => {
+  const displayTweet = (data) => {
     const tweet = data.tweets;
     const user = data.users[0];
     const mediaUrls = getMediaUrls(tweet, data.media);

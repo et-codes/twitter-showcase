@@ -33,7 +33,7 @@ const Search = () => {
       setSearch('');
       setSearched(true);
     } catch (err) {
-      setError(`Twitter server error: ${err.message}`);
+      setError(`Server error: ${err.message}`);
       setTimeout(() => setError(''), 5000);
       setResponse('');
     }
