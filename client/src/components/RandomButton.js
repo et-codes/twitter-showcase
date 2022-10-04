@@ -1,3 +1,5 @@
+import '../styles/RandomButton.css';
+
 const RandomButton = ({ handleClick }) => {
   return (
     <button className="RandomButton" onClick={handleClick} >

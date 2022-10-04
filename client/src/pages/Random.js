@@ -7,8 +7,9 @@ import '../styles/Random.css';
 const Random = () => {
   const [profileData, setProfileData] = useState('');
   const [profileList, setProfileList] = useState([]);
-  const [profilesToDisplay, setProfilesToDisplay] = useState([]);
   const [tweetToDisplay, setTweetToDisplay] = useState('');
+  const [showProfiles, setShowProfiles] = useState(true);
+  const [showTweet, setShowTweet] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Random = () => {
   useEffect(() => {
     const createProfileList = () => {
       const profiles = [
-        <h2 key={1}>Click on one of my favorite drummers for a random Tweet!</h2>
+        <h2>Click on one of my favorite drummers for a random Tweet!</h2>
       ];
       if (profileData !== '') {
         profileData.forEach(profile => {
@@ -39,7 +40,6 @@ const Random = () => {
         });
       }
       setProfileList(profiles);
-      setProfilesToDisplay(profiles);
     }
     createProfileList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,20 +79,20 @@ const Random = () => {
         <RandomButton handleClick={searchAgain} />
       </div>
     );
-    setProfilesToDisplay([]);
+    setShowProfiles(false);
+    setShowTweet(true);
   }
 
   const searchAgain = (event) => {
-    console.log('Search again.');
-    setTweetToDisplay('');
-    setProfilesToDisplay(profileList);
+    setShowTweet(false);
+    setShowProfiles(true);
   }
 
   return (
     <div className="Page Random">
       <span className="error">{error}</span>
-      {profilesToDisplay}
-      {tweetToDisplay}
+      {showProfiles && profileList}
+      {showTweet && tweetToDisplay}
     </div>
   );
 }
