@@ -3,8 +3,10 @@ const parseLinks = (tweet) => {
 
   const text = [];
   let index = 0;
+
   if (tweet.entities && tweet.entities.urls) {
     const urls = tweet.entities.urls;
+
     urls.forEach(urlObj => {
       const start = tweet.text.search(urlObj.url);
 

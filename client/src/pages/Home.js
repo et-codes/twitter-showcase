@@ -1,5 +1,5 @@
-import '../styles/Home.css';
 import { Description, TwitterLogo } from '../components';
+import '../styles/Home.css';
 
 const Home = () => {
   return (

@@ -1,5 +1,5 @@
-import externalLink from '../assets/external-link.png';
 import { ProfileHeader } from './';
+import externalLink from '../assets/external-link.png';
 
 const TweetHeader = ({ tweet, user }) => {
   const tweetUrl = `https://twitter.com/${user.username}/status/${tweet.id}`;

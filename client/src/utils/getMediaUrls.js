@@ -1,9 +1,12 @@
 const getMediaUrls = (tweet, media) => {
   const mediaUrlList = [];
+
   if (tweet.attachments) {
     const mediaKeys = tweet.attachments.media_keys;
+
     mediaKeys.forEach(mediaKey => {
       const mediaObject = media.find(obj => obj.media_key === mediaKey);
+
       if (mediaObject.type === 'photo') {
         mediaUrlList.push(mediaObject.url);
       } else {

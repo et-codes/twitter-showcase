@@ -7,13 +7,13 @@ const TweetText = ({ tweet }) => {
       const start = tweet.text.search(urlObj.url);
 
       text.push(
-        <span key={Date().now}>
+        <span key={Math.random()}>
           {tweet.text.slice(index, start)}
         </span>
       );
 
       text.push(
-        <span key={Date().now}>
+        <span key={Math.random()}>
           <a href={urlObj.url} target="_blank" rel="noreferrer">
             {urlObj.url}
           </a>
@@ -24,7 +24,7 @@ const TweetText = ({ tweet }) => {
     });
   };
 
-  text.push(<span key={Date().now}>{tweet.text.slice(index)}</span>);
+  text.push(<span key={Math.random()}>{tweet.text.slice(index)}</span>);
 
   return (
     <p>{text}</p>

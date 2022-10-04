@@ -1,7 +1,7 @@
-import './styles/App.css';
 import { Header, Footer } from './components';
 import { Home, Search, Random, NotFound } from './pages';
 import { Routes, Route } from 'react-router-dom';
+import './styles/App.css';
 
 const App = () => {
   return (

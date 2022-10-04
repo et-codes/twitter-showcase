@@ -30,12 +30,15 @@ const Random = () => {
   useEffect(() => {
     const createProfileList = () => {
       const profiles = [
-        <h2>Click on one of my favorite drummers for a random Tweet!</h2>
+        <h2 key={Math.random()}>
+          Click on one of my favorite drummers for a random Tweet!
+        </h2>
       ];
       if (profileData !== '') {
         profileData.forEach(profile => {
           profiles.push(
-            <Profile key={profile.id} profile={profile} onClick={getRandomTweetId} />
+            <Profile key={profile.id} profile={profile}
+              onClick={getRandomTweetId} />
           );
         });
       }

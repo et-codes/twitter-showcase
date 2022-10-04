@@ -50,7 +50,12 @@ const Search = () => {
         const user = getUser(tweet.author_id);
         const mediaUrls = getMediaUrls(tweet, response.media);
         tweetsList.push(
-          <Tweet key={tweet.id} tweet={tweet} user={user} mediaUrls={mediaUrls} />
+          <Tweet
+            key={tweet.id}
+            tweet={tweet}
+            user={user}
+            mediaUrls={mediaUrls}
+          />
         );
       });
     } else {
