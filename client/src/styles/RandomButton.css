@@ -6,11 +6,12 @@
   border-width: 1px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   padding: 10px 20px;
-  background-color: white;
+  background-color: #1d9bf0;
+  color: white;
   margin-bottom: 10px;
 }
 
 .RandomButton:hover {
-  background-color: #1d9bf0;
-  color: white;
+  background-color: white;
+  color: #101419;
 }

@@ -6,7 +6,7 @@ from flask_cors import CORS
 from flask_restful import Api, Resource
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./build', static_url_path='/')
 cors = CORS(app)
 api = Api(app)
 load_dotenv()
@@ -99,8 +99,8 @@ class SingleTweet(Resource):
 
 
 @app.route('/')
-def home():
-    return '<h1>Server Home</h1>'
+def index():
+    return app.send_static_file('index.html')
 
 api.add_resource(SearchTweets, '/api/tweets/<string:query>')
 api.add_resource(UserTimeline, '/api/timeline/<string:id>')
