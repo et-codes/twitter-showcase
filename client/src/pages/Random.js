@@ -16,7 +16,7 @@ const Random = () => {
     const getProfiles = async () => {
       try {
         const users = 'davewecklmusic,JostNickel,AntonioDrumsX,copelandmusic,mikeslessons';
-        const url = `http://localhost:5000/api/userdata/${users}&user.fields=id,name,username,description,profile_image_url,verified`;
+        const url = `${process.env.REACT_APP_BACKEND}/api/userdata/${users}&user.fields=id,name,username,description,profile_image_url,verified`;
         const resp = await axios.get(url);
         setProfileData(resp.data);
       } catch (err) {
@@ -50,7 +50,7 @@ const Random = () => {
 
   const getRandomTweetId = async (id) => {
     try {
-      const url = `http://localhost:5000/api/timeline/${id}`;
+      const url = `${process.env.REACT_APP_BACKEND}/api/timeline/${id}`;
       const resp = await axios.get(url);
       const index = Math.floor(Math.random() * resp.data.length);
       const tweetId = resp.data[index].id;
@@ -63,7 +63,7 @@ const Random = () => {
 
   const getTweet = async (id) => {
     try {
-      const url = `http://localhost:5000/api/tweet/${id}`;
+      const url = `${process.env.REACT_APP_BACKEND}/api/tweet/${id}`;
       const resp = await axios.get(url);
       displayTweet(resp.data);
     } catch (err) {
