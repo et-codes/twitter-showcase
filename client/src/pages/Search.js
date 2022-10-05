@@ -67,7 +67,7 @@ const Search = () => {
   const tweetsToDisplay = createTweetList();
 
   return (
-    <div className="Search Page">
+    <div className="Page Search">
       <h1>Search</h1>
       <SearchBar
         handleChange={handleChange}
