@@ -20,3 +20,8 @@
 .Profile p {
   font-weight: normal;
 }
+
+.Profile:hover {
+  box-shadow: 0 1px 3px 1px #1d9bf0;
+  border-color: #1d9bf0;
+}
