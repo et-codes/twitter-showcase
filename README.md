@@ -6,12 +6,26 @@ _This app allows the user to search Twitter by keywords or user (use "@" before 
 
 ![GIF of the app in action](/client/src/assets/twitter-app.gif)
 
+## Installation Instructions
+
+1. Run `npm install` in the `client` directory.
+1. Install the `poetry` dependency management tool. ([Link](https://python-poetry.org/docs/#installation))
+1. Run `poetry shell` in the `server` directory.
+1. Run `poetry install` in the `server` directory.
+1. Set an environment variable `REACT_APP_BACKEND` to `http://localhost:5000'.
+1. Set an environment variable `TOKEN` to your bearer token value for the Twitter API.
+1. Run `npm run build` command from the `client` folder.
+1. Delete the existing `build` folder from the `server` directory.
+1. Move the new `build` folder from the `client` directory to the `server` directory.
+1. Run `poetry run flask run` from the `server` directory.
+1. Navigate to `http://localhost:5000` and enjoy!
+
 ## Technical Details
 
 **Front End**
 
 - Written with **HTML**, **CSS**, and **JavaScript**, using the **React** framework.
-- The `react-router-dom` is employed to navigate the "pages" of the app.
+- The `react-router-dom` module is employed to navigate the "pages" of the app.
 - The `axios` library is used to make calls to the custom API.
 
 **Back End**
