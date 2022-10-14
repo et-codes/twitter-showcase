@@ -97,15 +97,15 @@ class SingleTweet(Resource):
 
         return payload, 200
 
-
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
-
 api.add_resource(SearchTweets, '/api/tweets/<string:query>')
 api.add_resource(UserTimeline, '/api/timeline/<string:id>')
 api.add_resource(UserData, '/api/userdata/<string:query>')
 api.add_resource(SingleTweet, '/api/tweet/<string:id>')
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<string:path>')
+def index(path):
+    return app.send_static_file('index.html')
 
 
 if __name__ == '__main__':
