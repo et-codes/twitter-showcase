@@ -1,27 +1,15 @@
-import { TweetHeader, TweetFooter } from './';
+import { TweetHeader, TweetFooter, TweetMedia } from './';
 import parseLinks from '../utils/parseLinks.js';
 import '../styles/Tweet.css';
 
 const Tweet = ({ tweet, user, mediaUrls }) => {
-  const media = [];
-  mediaUrls.forEach(url => {
-    media.push(
-      <img
-        key={Math.random()}
-        className="Tweet-image"
-        src={url}
-        alt="Tweet media"
-      />
-    );
-  });
-
   const tweetText = parseLinks(tweet);
 
   return (
     <div className="Tweet">
       <TweetHeader tweet={tweet} user={user} />
       <p>{tweetText}</p>
-      {media}
+      <TweetMedia mediaUrls={mediaUrls} />
       <TweetFooter tweet={tweet} />
     </div>
   );
