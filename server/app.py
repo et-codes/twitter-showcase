@@ -14,13 +14,10 @@ load_dotenv()
 # Fields to return from Tweet searches
 tweet_fields = 'tweet.fields=author_id,id,text,created_at,public_metrics,source,entities&expansions=author_id,attachments.media_keys,referenced_tweets.id&user.fields=id,name,username,description,profile_image_url,verified&media.fields=url,preview_image_url'
 
-def get_headers():
+
+def get_response(url):
     token = 'Bearer ' + os.environ['TOKEN']
     headers = { "Authorization": token }
-    return headers
-
-
-def get_response(url, headers):
     response = requests.get(url, headers=headers)
 
     if response.status_code != requests.codes.ok:
@@ -50,8 +47,7 @@ class SearchTweets(Resource):
 
         url = f'https://api.twitter.com/2/tweets/search/recent?query={search}&max_results=10&{tweet_fields}'
 
-        headers = get_headers()
-        response, code = get_response(url, headers)
+        response, code = get_response(url)
 
         if code != requests.codes.ok:
             return response, code
@@ -70,8 +66,7 @@ class UserTimeline(Resource):
     def get(self, id):
         url = f'https://api.twitter.com/2/users/{id}/tweets'
 
-        headers = get_headers()
-        response, code = get_response(url, headers)
+        response, code = get_response(url)
 
         return response['data'], code
 
@@ -80,8 +75,7 @@ class UserData(Resource):
     def get(self, query):
         url = f'https://api.twitter.com/2/users/by?usernames={query}'
 
-        headers = get_headers()
-        response, code = get_response(url, headers)
+        response, code = get_response(url)
 
         return response['data'], code
 
@@ -90,8 +84,7 @@ class SingleTweet(Resource):
     def get(self, id):
         url = f'https://api.twitter.com/2/tweets/{id}?{tweet_fields}'
 
-        headers = get_headers()
-        response, code = get_response(url, headers)
+        response, code = get_response(url)
 
         payload = build_payload(response)
 
