@@ -8,6 +8,8 @@ In light of the fact that I no longer use X/Twitter myself, and the current stat
 
 Thanks for your understanding.
 
+___
+
 ### Try the app yourself [here](https://et-twitter-app.herokuapp.com/)!
 
 _This app allows the user to search Twitter by keywords or user (use "@" before the user name). The 10 most recent results are displayed, with a link to the Tweet on the Twitter website. In the Random Tweet section, click on one of the profiles in the list to get a random Tweet from that user._
