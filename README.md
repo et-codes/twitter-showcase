@@ -1,5 +1,13 @@
 # Twitter Showcase App
 
+## This app is no longer working as intended due to changes in the X/Twitter API
+
+As you may already know, the new management of Twitter has changed the free API tier and limited functionality so that only Tweet creation is supported on the v2 API.  My app was built on the v2 API initially, so of course this caused my queries to break.
+
+In light of the fact that I no longer use X/Twitter myself, and the current state of cultural affairs, I have decided not to dedicate the time to retool this app.  However, I am leaving the project up here, because I spent a lot of time working on it and I was proud of the result.  Some may still get some benefit from reviewing the code.
+
+Thanks for your understanding.
+
 ### Try the app yourself [here](https://et-twitter-app.herokuapp.com/)!
 
 _This app allows the user to search Twitter by keywords or user (use "@" before the user name). The 10 most recent results are displayed, with a link to the Tweet on the Twitter website. In the Random Tweet section, click on one of the profiles in the list to get a random Tweet from that user._
